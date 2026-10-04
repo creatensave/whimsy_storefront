@@ -4,6 +4,7 @@ import { listLocales } from "@lib/data/locales"
 import { getLocale } from "@lib/data/locale-actions"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
+import Image from "next/image"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import Search from "@modules/layout/components/search"
@@ -32,7 +33,14 @@ export default async function Nav() {
               className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
               data-testid="nav-store-link"
             >
-              Medusa Store
+              <Image
+    src="/logo.png"
+    alt="Whimsy Wonder"
+    width={320}
+    height={90}
+    className="h-14 sm:h-16 md:h-20 w-auto object-contain"
+    priority
+  />
             </LocalizedClientLink>
           </div>
 
