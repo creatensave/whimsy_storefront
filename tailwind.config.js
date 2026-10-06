@@ -33,6 +33,14 @@ module.exports = {
           80: "#1F2937",
           90: "#111827",
         },
+        whimsy: {
+          rose: "#D48372",       // Accent buttons, left brush & "himsy"
+          sage: "#5E8C82",       // Badges, tags, right brush & "onder"
+          ochre: "#E2B357",      // Secondary accents, "Workshops" & borders
+          slate: "#3F4E4F",      // Body copy, headings & "Create | Connect | Heal"
+          canvas: "#FAF7F2",     // Warm artisan paper background
+          card: "#FFFFFF",       // Pure white card background
+        }
       },
       borderRadius: {
         none: "0px",
@@ -41,6 +49,9 @@ module.exports = {
         rounded: "8px",
         large: "16px",
         circle: "9999px",
+      },boxShadow: {
+        "soft-card": "0 4px 20px -2px rgba(63, 78, 79, 0.08)",
+        "bubble-hover": "0 8px 24px -4px rgba(212, 131, 114, 0.25)",
       },
       maxWidth: {
         "8xl": "100rem",
