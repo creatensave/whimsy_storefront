@@ -10,7 +10,8 @@ import Nav from "@modules/layout/templates/nav"
 import FreeShippingPriceNudge from "@modules/shipping/components/free-shipping-price-nudge"
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getBaseURL()),
+  title: "Best DIY Art Kits & Workshops",
+  description: "Curated DIY craft and art kits, beginner workshops, and mindful creative experiences.",
 }
 
 export default async function PageLayout(props: { children: React.ReactNode }) {
