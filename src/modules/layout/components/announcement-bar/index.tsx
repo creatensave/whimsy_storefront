@@ -9,7 +9,7 @@ export default function AnnouncementBar() {
       <div className="flex items-center justify-center gap-2">
         <span aria-hidden="true" className="text-whimsy-yellow">✨</span>
         <p>
-          Free Shipping Across India on Orders Above ₹599!{" "}
+          Free Shipping Across India on Orders Above ₹899!{" "}
           <LocalizedClientLink
             href="/store"
             className="text-whimsy-yellow underline underline-offset-4 font-semibold hover:text-white transition-colors ml-1"
