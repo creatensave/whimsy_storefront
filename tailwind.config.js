@@ -34,13 +34,22 @@ module.exports = {
           90: "#111827",
         },
         whimsy: {
-          rose: "#D48372",       // Accent buttons, left brush & "himsy"
-          sage: "#5E8C82",       // Badges, tags, right brush & "onder"
-          ochre: "#E2B357",      // Secondary accents, "Workshops" & borders
-          slate: "#3F4E4F",      // Body copy, headings & "Create | Connect | Heal"
-          canvas: "#FAF7F2",     // Warm artisan paper background
-          card: "#FFFFFF",       // Pure white card background
+          rose: "#EE8279",    // Warm coral rose from brush bristle & W
+          yellow: "#FAD889",  // Butter yellow from brush & W
+          sage: "#82B3A1",    // Soft sage green from left handle
+          teal: "#3FA9C4",    // Playful sky teal from right handle
+          ink: "#262626",     // Crisp dark outline color for typography
+          cream: "#FDFBF7",   // Warm artisanal canvas background
         }
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 25s linear infinite",
       },
       borderRadius: {
         none: "0px",
