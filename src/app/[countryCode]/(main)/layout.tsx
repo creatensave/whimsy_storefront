@@ -8,8 +8,10 @@ import CartMismatchBanner from "@modules/layout/components/cart-mismatch-banner"
 import Footer from "@modules/layout/templates/footer"
 import Nav from "@modules/layout/templates/nav"
 import FreeShippingPriceNudge from "@modules/shipping/components/free-shipping-price-nudge"
+import WhatsAppButton from "@modules/common/components/whatsapp-button"
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getBaseURL()),
   title: "Best DIY Art Kits & Workshops",
   description: "Curated DIY craft and art kits, beginner workshops, and mindful creative experiences.",
 }
@@ -21,7 +23,6 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
 
   if (cart) {
     const { shipping_options } = await listCartOptions()
-
     shippingOptions = shipping_options
   }
 
@@ -39,8 +40,14 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
           shippingOptions={shippingOptions}
         />
       )}
+      
       {props.children}
+      
       <Footer />
+
+      {/* Global WhatsApp Floating Assistant */}
+      <WhatsAppButton phoneNumber="916303529505" />
+      defaultMessage="Hi Whimsy Wonder! I'd love to know more about DIY kits!"
     </>
   )
 }
