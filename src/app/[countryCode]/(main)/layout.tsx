@@ -46,8 +46,9 @@ export default async function PageLayout(props: { children: React.ReactNode }) {
       <Footer />
 
       {/* Global WhatsApp Floating Assistant */}
-      <WhatsAppButton phoneNumber="916303529505" />
-      defaultMessage="Hi Whimsy Wonder! I'd love to know more about DIY kits!"
-    </>
+      <WhatsAppButton 
+  phoneNumber="916300029505" 
+  defaultMessage="Hi Whimsy Wonder! I'd love to know more about your Diwali DIY kits"/>
+  </>
   )
 }

@@ -49,8 +49,13 @@ export default function Hero() {
 
   return (
     <section className="relative w-full bg-[#FDFBF7] overflow-hidden">
-      <div className="relative w-full aspect-[16/7] sm:aspect-[21/8] md:aspect-[24/9] min-h-[300px] max-h-[640px]">
-        {/* Slides Track */}
+      {/* 
+        Responsive Container:
+        - Mobile: aspect-[16/9] to fit entire horizontal composition without cropping
+        - Tablet: aspect-[21/9]
+        - Desktop: aspect-[24/9]
+      */}
+      <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] lg:aspect-[24/9] max-h-[600px] flex items-center justify-center">
         {slides.map((slide, index) => {
           const isActive = index === currentIndex
           return (
@@ -65,10 +70,14 @@ export default function Hero() {
                 className="block relative w-full h-full cursor-pointer"
                 tabIndex={isActive ? 0 : -1}
               >
+                {/* 
+                  object-contain on mobile ensures zero text or diya cuts off,
+                  object-cover on md+ fills the editorial desktop viewport 
+                */}
                 <img
                   src={slide.imageSrc}
                   alt={slide.title}
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-contain md:object-cover object-center select-none"
                   loading={index === 0 ? "eager" : "lazy"}
                 />
               </LocalizedClientLink>
@@ -76,7 +85,7 @@ export default function Hero() {
           )
         })}
 
-        {/* Left Arrow */}
+        {/* Left Arrow (scaled down on mobile so it doesn't obstruct banner art) */}
         <button
           type="button"
           onClick={(e) => {
@@ -84,13 +93,13 @@ export default function Hero() {
             prevSlide()
           }}
           aria-label="Previous slide"
-          className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/70 hover:bg-white text-black/80 hover:text-black backdrop-blur-sm shadow-sm flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+          className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-black/80 hover:text-black shadow-sm flex items-center justify-center backdrop-blur-sm transition-all active:scale-90"
         >
           <svg
-            className="w-5 h-5"
+            className="w-4 h-4 sm:w-5 sm:h-5"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="2.5"
             viewBox="0 0 24 24"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -105,21 +114,21 @@ export default function Hero() {
             nextSlide()
           }}
           aria-label="Next slide"
-          className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/70 hover:bg-white text-black/80 hover:text-black backdrop-blur-sm shadow-sm flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+          className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-black/80 hover:text-black shadow-sm flex items-center justify-center backdrop-blur-sm transition-all active:scale-90"
         >
           <svg
-            className="w-5 h-5"
+            className="w-4 h-4 sm:w-5 sm:h-5"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="2.5"
             viewBox="0 0 24 24"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </button>
 
-        {/* Bottom Line Indicators */}
-        <div className="absolute bottom-5 inset-x-0 z-20 flex justify-center items-center gap-2.5">
+        {/* Minimal Progress Lines */}
+        <div className="absolute bottom-2 sm:bottom-4 inset-x-0 z-20 flex justify-center items-center gap-1.5 sm:gap-2">
           {slides.map((_, i) => (
             <button
               key={i}
@@ -129,10 +138,10 @@ export default function Hero() {
                 setCurrentIndex(i)
               }}
               aria-label={`Go to slide ${i + 1}`}
-              className={`h-[3px] rounded-full transition-all duration-300 ${
+              className={`h-[2px] sm:h-[3px] rounded-full transition-all duration-300 ${
                 currentIndex === i
-                  ? "w-8 sm:w-12 bg-black/80"
-                  : "w-4 sm:w-6 bg-black/20 hover:bg-black/40"
+                  ? "w-6 sm:w-10 bg-black/80"
+                  : "w-3 sm:w-5 bg-black/20"
               }`}
             />
           ))}
