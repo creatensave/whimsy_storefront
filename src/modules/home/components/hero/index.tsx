@@ -6,7 +6,8 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 interface BannerSlide {
   id: string
   title: string
-  imageSrc: string
+  desktopImageSrc: string
+  mobileImageSrc: string
   link: string
 }
 
@@ -14,19 +15,22 @@ const slides: BannerSlide[] = [
   {
     id: "diwali-festive-magic",
     title: "Diwali Festive Magic",
-    imageSrc: "/banners/diwali-banner.svg",
+    desktopImageSrc: "/banners/diwali-banner.svg",
+    mobileImageSrc: "/banners/diwali-banner-mobile.svg",
     link: "/store",
   },
   {
     id: "banner-2-placeholder",
     title: "Hands-on Art Kits",
-    imageSrc: "/banners/diwali-banner.svg",
+    desktopImageSrc: "/banners/diwali-banner.svg",
+    mobileImageSrc: "/banners/diwali-banner-mobile.svg",
     link: "/store",
   },
   {
     id: "banner-3-placeholder",
     title: "Messy Hands Happy Hearts",
-    imageSrc: "/banners/diwali-banner.svg",
+    desktopImageSrc: "/banners/diwali-banner.svg",
+    mobileImageSrc: "/banners/diwali-banner-mobile.svg",
     link: "/store",
   },
 ]
@@ -50,12 +54,12 @@ export default function Hero() {
   return (
     <section className="relative w-full bg-[#FDFBF7] overflow-hidden">
       {/* 
-        Responsive Container:
-        - Mobile: aspect-[16/9] to fit entire horizontal composition without cropping
-        - Tablet: aspect-[21/9]
-        - Desktop: aspect-[24/9]
+        Responsive Aspect Ratios:
+        - Mobile: aspect-[4/5] allows the mobile SVG to render bold and tall without shrinking
+        - Tablet: sm:aspect-[16/9]
+        - Desktop: md:aspect-[21/8] lg:aspect-[24/9] max-h-[620px]
       */}
-      <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] lg:aspect-[24/9] max-h-[600px] flex items-center justify-center">
+      <div className="relative w-full aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/8] lg:aspect-[24/9] max-h-[620px] flex items-center justify-center">
         {slides.map((slide, index) => {
           const isActive = index === currentIndex
           return (
@@ -70,14 +74,19 @@ export default function Hero() {
                 className="block relative w-full h-full cursor-pointer"
                 tabIndex={isActive ? 0 : -1}
               >
-                {/* 
-                  object-contain on mobile ensures zero text or diya cuts off,
-                  object-cover on md+ fills the editorial desktop viewport 
-                */}
+                {/* Mobile/Small Tablet Graphic (4:5) */}
                 <img
-                  src={slide.imageSrc}
+                  src={slide.mobileImageSrc}
                   alt={slide.title}
-                  className="w-full h-full object-contain md:object-cover object-center select-none"
+                  className="block md:hidden w-full h-full object-cover object-center select-none"
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+
+                {/* Desktop/Widescreen Graphic (Landscape) */}
+                <img
+                  src={slide.desktopImageSrc}
+                  alt={slide.title}
+                  className="hidden md:block w-full h-full object-cover object-center select-none"
                   loading={index === 0 ? "eager" : "lazy"}
                 />
               </LocalizedClientLink>
@@ -85,7 +94,7 @@ export default function Hero() {
           )
         })}
 
-        {/* Left Arrow (scaled down on mobile so it doesn't obstruct banner art) */}
+        {/* Left Arrow Button */}
         <button
           type="button"
           onClick={(e) => {
@@ -93,7 +102,7 @@ export default function Hero() {
             prevSlide()
           }}
           aria-label="Previous slide"
-          className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-black/80 hover:text-black shadow-sm flex items-center justify-center backdrop-blur-sm transition-all active:scale-90"
+          className="absolute left-2.5 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-black/80 hover:text-black shadow-sm flex items-center justify-center backdrop-blur-sm transition-all active:scale-90"
         >
           <svg
             className="w-4 h-4 sm:w-5 sm:h-5"
@@ -106,7 +115,7 @@ export default function Hero() {
           </svg>
         </button>
 
-        {/* Right Arrow */}
+        {/* Right Arrow Button */}
         <button
           type="button"
           onClick={(e) => {
@@ -114,7 +123,7 @@ export default function Hero() {
             nextSlide()
           }}
           aria-label="Next slide"
-          className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-black/80 hover:text-black shadow-sm flex items-center justify-center backdrop-blur-sm transition-all active:scale-90"
+          className="absolute right-2.5 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-black/80 hover:text-black shadow-sm flex items-center justify-center backdrop-blur-sm transition-all active:scale-90"
         >
           <svg
             className="w-4 h-4 sm:w-5 sm:h-5"
@@ -127,8 +136,8 @@ export default function Hero() {
           </svg>
         </button>
 
-        {/* Minimal Progress Lines */}
-        <div className="absolute bottom-2 sm:bottom-4 inset-x-0 z-20 flex justify-center items-center gap-1.5 sm:gap-2">
+        {/* Segmented Progress Indicators */}
+        <div className="absolute bottom-3 sm:bottom-5 inset-x-0 z-20 flex justify-center items-center gap-1.5 sm:gap-2">
           {slides.map((_, i) => (
             <button
               key={i}
@@ -138,10 +147,10 @@ export default function Hero() {
                 setCurrentIndex(i)
               }}
               aria-label={`Go to slide ${i + 1}`}
-              className={`h-[2px] sm:h-[3px] rounded-full transition-all duration-300 ${
+              className={`h-[2.5px] sm:h-[3px] rounded-full transition-all duration-300 ${
                 currentIndex === i
-                  ? "w-6 sm:w-10 bg-black/80"
-                  : "w-3 sm:w-5 bg-black/20"
+                  ? "w-7 sm:w-11 bg-black/80"
+                  : "w-3 sm:w-5 bg-black/20 hover:bg-black/40"
               }`}
             />
           ))}

@@ -28,15 +28,19 @@ export default async function Nav() {
   ])
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50">
+    <div className="sticky top-0 inset-x-0 z-50 bg-white">
       {/* Announcement Bar */}
       <AnnouncementBar />
 
       <header className="relative bg-white border-b border-[#EADFCB] shadow-sm">
-        <nav className="content-container mx-auto px-4 h-16 sm:h-20 flex items-center justify-between gap-4">
+        {/* 
+          Mobile: 3-column grid (Left: Hamburger, Center: Centered Logo, Right: Actions)
+          Desktop (lg+): Flex row layout with inline nav links
+        */}
+        <nav className="content-container mx-auto px-3 sm:px-6 h-16 sm:h-20 grid grid-cols-3 items-center lg:flex lg:justify-between lg:gap-6">
           
-          {/* Left: Mobile SideMenu & Brand Logo */}
-          <div className="flex items-center gap-3">
+          {/* 1. Left: Mobile Hamburger / Desktop Logo */}
+          <div className="flex items-center justify-start">
             <div className="lg:hidden flex items-center">
               <SideMenu
                 regions={regions}
@@ -44,45 +48,70 @@ export default async function Nav() {
                 currentLocale={currentLocale}
               />
             </div>
-            <LocalizedClientLink
-              href="/"
-              className="flex items-center transition-transform duration-200 hover:scale-105"
-              data-testid="nav-store-link"
-            >
-              <Image
-                src="/logo.png"
-                alt="Whimsy & Wonder"
-                width={140}
-                height={50}
-                className="h-9 sm:h-12 w-auto object-contain"
-                priority
-              />
-            </LocalizedClientLink>
-          </div>
 
-          {/* Center: Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-            {navLinks.map((link) => (
+            {/* Desktop-only Logo */}
+            <div className="hidden lg:block">
               <LocalizedClientLink
-                key={link.label}
-                href={link.href}
-                className="text-xs xl:text-sm font-semibold text-whimsy-ink hover:text-whimsy-rose transition-colors whitespace-nowrap"
+                href="/"
+                className="flex items-center transition-transform duration-200 hover:scale-105"
+                data-testid="nav-store-link"
               >
-                {link.label}
+                <Image
+                  src="/WW_logo_01.jpeg"
+                  alt="Whimsy & Wonder"
+                  width={140}
+                  height={80}
+                  className="h-12 xl:h-14 w-auto object-contain py-0.5"
+                  priority
+                />
               </LocalizedClientLink>
-            ))}
+            </div>
           </div>
 
-          {/* Right: Quick Action Icons */}
-          <div className="flex items-center gap-4 sm:gap-5 text-whimsy-ink">
-            {/* Search Icon */}
+          {/* 2. Center: Mobile Centered Logo / Desktop Navigation Links */}
+          <div className="flex items-center justify-center">
+            {/* Mobile-only Centered Logo */}
+            <div className="lg:hidden flex items-center justify-center">
+              <LocalizedClientLink
+                href="/"
+                className="flex items-center"
+                data-testid="nav-store-link-mobile"
+              >
+                <Image
+                  src="/WW_logo_01.jpeg"
+                  alt="Whimsy & Wonder"
+                  width={120}
+                  height={70}
+                  className="h-11 sm:h-12 w-auto object-contain max-w-[130px] py-0.5"
+                  priority
+                />
+              </LocalizedClientLink>
+            </div>
+
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:flex items-center gap-5 xl:gap-8">
+              {navLinks.map((link) => (
+                <LocalizedClientLink
+                  key={link.label}
+                  href={link.href}
+                  className="text-xs xl:text-sm font-semibold text-whimsy-ink hover:text-whimsy-rose transition-colors whitespace-nowrap"
+                >
+                  {link.label}
+                </LocalizedClientLink>
+              ))}
+            </div>
+          </div>
+
+          {/* 3. Right: Quick Action Icons */}
+          <div className="flex items-center justify-end gap-2.5 sm:gap-4 md:gap-5 text-whimsy-ink">
+            {/* Search */}
             <LocalizedClientLink
               href="/search"
               aria-label="Search"
-              className="hover:text-whimsy-rose transition-colors p-1"
+              className="hover:text-whimsy-rose transition-colors p-1.5 touch-manipulation"
             >
               <svg
-                className="w-5 h-5"
+                className="w-5 h-5 sm:w-5 sm:h-5"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -97,11 +126,11 @@ export default async function Nav() {
               </svg>
             </LocalizedClientLink>
 
-            {/* Wishlist Icon */}
+            {/* Wishlist (Hidden on mobile phones to preserve clean spacing, visible on sm+) */}
             <LocalizedClientLink
               href="/wishlist"
               aria-label="Wishlist"
-              className="hidden sm:inline-flex hover:text-whimsy-rose transition-colors p-1"
+              className="hidden sm:inline-flex hover:text-whimsy-rose transition-colors p-1.5 touch-manipulation"
             >
               <svg
                 className="w-5 h-5"
@@ -118,11 +147,11 @@ export default async function Nav() {
               </svg>
             </LocalizedClientLink>
 
-            {/* Account Icon */}
+            {/* Account */}
             <LocalizedClientLink
               href="/account"
               aria-label="Account"
-              className="hover:text-whimsy-rose transition-colors p-1"
+              className="hover:text-whimsy-rose transition-colors p-1.5 touch-manipulation"
               data-testid="nav-account-link"
             >
               <svg
@@ -141,11 +170,11 @@ export default async function Nav() {
               </svg>
             </LocalizedClientLink>
 
-            {/* Medusa Cart Button */}
+            {/* Cart Button with Suspense fallback */}
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="hover:text-whimsy-rose flex gap-2 p-1"
+                  className="hover:text-whimsy-rose flex items-center p-1.5 touch-manipulation"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >

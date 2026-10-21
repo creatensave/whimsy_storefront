@@ -25,6 +25,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[countryCode]/(main)/page.js"
+    ],
+    "/[countryCode]/(main)/products/[handle]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[countryCode]/(main)/products/[handle]/page.js"
     ]
   }
 }

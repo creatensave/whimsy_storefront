@@ -6,6 +6,7 @@ import CategoryBubbles from "@modules/home/components/category-bubbles"
 import TrustStrip from "@modules/home/components/trust-strip"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
+import TrendingKits from "@modules/home/components/trending-kits"
 
 export const metadata: Metadata = {
   title: "Best DIY Art Kits & Workshops",
@@ -33,7 +34,8 @@ export default async function Home(props: {
   return (
     <main className="bg-whimsy-cream min-h-screen">
     <Hero />
-    <CategoryBubbles />
+    {/* 1. Trending DIY Kits Section */}
+    <TrendingKits />
     <ul>
       <FeaturedProducts collections={collections} region={region} />
     </ul>
