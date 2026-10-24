@@ -1,45 +1,48 @@
 import { Metadata } from "next"
+import { notFound } from "next/navigation"
 
-import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
-import CategoryBubbles from "@modules/home/components/category-bubbles"
+import TrendingKits from "@modules/home/components/trending-kits"
+import FeaturedProducts from "@modules/home/components/featured-products"
 import TrustStrip from "@modules/home/components/trust-strip"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
-import TrendingKits from "@modules/home/components/trending-kits"
 
 export const metadata: Metadata = {
-  title: "Best DIY Art Kits & Workshops",
+  title: "Best DIY Art Kits & Workshops | Whimsy & Wonder",
   description:
     "Mindful DIY craft & art kits, beginner workshops, and creative experiences by Whimsy & Wonder.",
 }
 
-export default async function Home(props: {
+interface HomePageProps {
   params: Promise<{ countryCode: string }>
-}) {
-  const params = await props.params
+}
 
-  const { countryCode } = params
+export default async function Home(props: HomePageProps) {
+  const { countryCode } = await props.params
 
   const region = await getRegion(countryCode)
-
   const { collections } = await listCollections({
     fields: "id, handle, title",
   })
 
+  // Fail gracefully into the not-found handler rather than an empty blank screen
   if (!collections || !region) {
-    return null
+    notFound()
   }
 
   return (
-    <main className="bg-whimsy-cream min-h-screen">
-    <Hero />
-    {/* 1. Trending DIY Kits Section */}
-    <TrendingKits />
-    <ul>
-      <FeaturedProducts collections={collections} region={region} />
-    </ul>
-    <TrustStrip />
-  </main>
+    <main className="bg-whimsy-cream min-h-screen flex flex-col">
+      <Hero />
+      <TrendingKits
+        collections={collections}
+        region={region}
+        countryCode={countryCode}
+      />
+      <div className="w-full">
+        <FeaturedProducts collections={collections} region={region} />
+      </div>
+      <TrustStrip />
+    </main>
   )
 }

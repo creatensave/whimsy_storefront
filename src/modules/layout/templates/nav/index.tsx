@@ -4,25 +4,15 @@ import Image from "next/image"
 import { listLocales } from "@lib/data/locales"
 import { getLocale } from "@lib/data/locale-actions"
 import { listRegions } from "@lib/data/regions"
-import { StoreRegion } from "@medusajs/types"
+import { MAIN_NAV_ITEMS } from "@lib/config"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 import AnnouncementBar from "@modules/layout/components/announcement-bar"
 
-const navLinks = [
-  { label: "Hot Stuff 🔥", href: "/store?sort=created_at" },
-  { label: "Categories", href: "/store" },
-  { label: "Workshops", href: "/categories/workshops" },
-  { label: "Gift Card", href: "/products/gift-card" },
-  { label: "All Products", href: "/store" },
-  { label: "Reviews", href: "/reviews" },
-  { label: "Contact", href: "/contact" },
-]
-
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
-    listRegions().then((regions: StoreRegion[]) => regions),
+    listRegions(),
     listLocales(),
     getLocale(),
   ])
@@ -32,14 +22,10 @@ export default async function Nav() {
       {/* Announcement Bar */}
       <AnnouncementBar />
 
-      <header className="relative bg-white border-b border-[#EADFCB] shadow-sm">
-        {/* 
-          Mobile: 3-column grid (Left: Hamburger, Center: Centered Logo, Right: Actions)
-          Desktop (lg+): Flex row layout with inline nav links
-        */}
-        <nav className="content-container mx-auto px-3 sm:px-6 h-16 sm:h-20 grid grid-cols-3 items-center lg:flex lg:justify-between lg:gap-6">
+      <header className="relative bg-white border-b border-grey-20 shadow-xs">
+        <nav className="content-container max-w-store-container mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 grid grid-cols-3 items-center lg:flex lg:justify-between lg:gap-6">
           
-          {/* 1. Left: Mobile Hamburger / Desktop Logo */}
+          {/* 1. Left: Mobile Hamburger & Desktop Logo */}
           <div className="flex items-center justify-start">
             <div className="lg:hidden flex items-center">
               <SideMenu
@@ -49,11 +35,11 @@ export default async function Nav() {
               />
             </div>
 
-            {/* Desktop-only Logo */}
+            {/* Desktop Brand Logo */}
             <div className="hidden lg:block">
               <LocalizedClientLink
                 href="/"
-                className="flex items-center transition-transform duration-200 hover:scale-105"
+                className="flex items-center transition-transform duration-200 hover:scale-102"
                 data-testid="nav-store-link"
               >
                 <Image
@@ -61,16 +47,16 @@ export default async function Nav() {
                   alt="Whimsy & Wonder"
                   width={140}
                   height={80}
-                  className="h-12 xl:h-14 w-auto object-contain py-0.5"
                   priority
+                  className="h-12 xl:h-14 w-auto object-contain py-0.5"
                 />
               </LocalizedClientLink>
             </div>
           </div>
 
-          {/* 2. Center: Mobile Centered Logo / Desktop Navigation Links */}
+          {/* 2. Center: Mobile Centered Logo & Desktop Nav Links */}
           <div className="flex items-center justify-center">
-            {/* Mobile-only Centered Logo */}
+            {/* Mobile Brand Logo */}
             <div className="lg:hidden flex items-center justify-center">
               <LocalizedClientLink
                 href="/"
@@ -82,15 +68,15 @@ export default async function Nav() {
                   alt="Whimsy & Wonder"
                   width={120}
                   height={70}
-                  className="h-11 sm:h-12 w-auto object-contain max-w-[130px] py-0.5"
                   priority
+                  className="h-11 sm:h-12 w-auto object-contain max-w-[130px] py-0.5"
                 />
               </LocalizedClientLink>
             </div>
 
             {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-5 xl:gap-8">
-              {navLinks.map((link) => (
+              {MAIN_NAV_ITEMS.map((link) => (
                 <LocalizedClientLink
                   key={link.label}
                   href={link.href}
@@ -102,7 +88,7 @@ export default async function Nav() {
             </div>
           </div>
 
-          {/* 3. Right: Quick Action Icons */}
+          {/* 3. Right: Quick Action Controls */}
           <div className="flex items-center justify-end gap-2.5 sm:gap-4 md:gap-5 text-whimsy-ink">
             {/* Search */}
             <LocalizedClientLink
@@ -111,11 +97,12 @@ export default async function Nav() {
               className="hover:text-whimsy-rose transition-colors p-1.5 touch-manipulation"
             >
               <svg
-                className="w-5 h-5 sm:w-5 sm:h-5"
+                className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <circle cx="11" cy="11" r="8" />
                 <path
@@ -126,7 +113,7 @@ export default async function Nav() {
               </svg>
             </LocalizedClientLink>
 
-            {/* Wishlist (Hidden on mobile phones to preserve clean spacing, visible on sm+) */}
+            {/* Wishlist */}
             <LocalizedClientLink
               href="/wishlist"
               aria-label="Wishlist"
@@ -138,6 +125,7 @@ export default async function Nav() {
                 stroke="currentColor"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -160,6 +148,7 @@ export default async function Nav() {
                 stroke="currentColor"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -170,7 +159,7 @@ export default async function Nav() {
               </svg>
             </LocalizedClientLink>
 
-            {/* Cart Button with Suspense fallback */}
+            {/* Cart Button with Suspense Fallback */}
             <Suspense
               fallback={
                 <LocalizedClientLink
@@ -184,6 +173,7 @@ export default async function Nav() {
                     stroke="currentColor"
                     strokeWidth="2"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
