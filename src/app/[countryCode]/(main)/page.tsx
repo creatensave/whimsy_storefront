@@ -39,10 +39,6 @@ export default async function Home(props: HomePageProps) {
         region={region}
         countryCode={countryCode}
       />
-      <div className="w-full">
-        <FeaturedProducts collections={collections} region={region} />
-      </div>
-      <TrustStrip />
     </main>
   )
 }
