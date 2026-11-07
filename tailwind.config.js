@@ -35,7 +35,6 @@ module.exports = {
       },
       fontSize: {
         "3xl": ["2rem", { lineHeight: "2.5rem" }],
-        // E-commerce specific display scales
         "price-lg": ["1.5rem", { lineHeight: "2rem", fontWeight: "600" }],
         "price-sm": ["1.125rem", { lineHeight: "1.5rem", fontWeight: "500" }],
       },
@@ -64,20 +63,11 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
-        // Raw Greys
-        grey: {
-          0: "#FFFFFF",
-          5: "#F9FAFB",
-          10: "#F3F4F6",
-          20: "#E5E7EB",
-          30: "#D1D5DB",
-          40: "#9CA3AF",
-          50: "#6B7280",
-          60: "#4B5563",
-          70: "#374151",
-          80: "#1F2937",
-          90: "#111827",
-        },
+        // Christmas & Festive Tokens
+        "christmas-red": "#B31B1B",
+        "christmas-green": "#1B4D3E",
+        "festive-gold": "#D4AF37",
+
         // Core Whimsy Identity Palette
         whimsy: {
           rose: "#EE8279",    // Coral rose (Accents, badges, CTAs)
@@ -87,7 +77,8 @@ module.exports = {
           ink: "#262626",     // Dark primary typography
           cream: "#FDFBF7",   // Canvas/background foundation
         },
-        // Functional / Semantic Aliases (Enforces consistent AI prompts & design hygiene)
+
+        // Functional / Semantic Aliases
         store: {
           canvas: "#FDFBF7",         // maps to whimsy.cream
           body: "#262626",           // maps to whimsy.ink
@@ -99,60 +90,20 @@ module.exports = {
           surface: "#FFFFFF",        // card / modal base
         },
       },
-      keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-50%)" },
-        },
-        ring: {
-          "0%": { transform: "rotate(0deg)" },
-          "100%": { transform: "rotate(360deg)" },
-        },
-        "fade-in-right": {
-          "0%": { opacity: "0", transform: "translateX(10px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-        "fade-in-top": {
-          "0%": { opacity: "0", transform: "translateY(-10px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        "fade-out-top": {
-          "0%": { height: "100%" },
-          "99%": { height: "0" },
-          "100%": { visibility: "hidden" },
-        },
-        "accordion-slide-up": {
-          "0%": { height: "var(--radix-accordion-content-height)", opacity: "1" },
-          "100%": { height: "0", opacity: "0" },
-        },
-        "accordion-slide-down": {
-          "0%": { minHeight: "0", maxHeight: "0", opacity: "0" },
-          "100%": { minHeight: "var(--radix-accordion-content-height)", maxHeight: "none", opacity: "1" },
-        },
-        enter: {
-          "0%": { transform: "scale(0.9)", opacity: 0 },
-          "100%": { transform: "scale(1)", opacity: 1 },
-        },
-        leave: {
-          "0%": { transform: "scale(1)", opacity: 1 },
-          "100%": { transform: "scale(0.9)", opacity: 0 },
-        },
-        "slide-in": {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(0)" },
-        },
-      },
       animation: {
-        marquee: "marquee 25s linear infinite",
-        ring: "ring 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite",
-        "fade-in-right": "fade-in-right 0.3s cubic-bezier(0.5, 0, 0.5, 1) forwards",
-        "fade-in-top": "fade-in-top 0.2s cubic-bezier(0.5, 0, 0.5, 1) forwards",
-        "fade-out-top": "fade-out-top 0.2s cubic-bezier(0.5, 0, 0.5, 1) forwards",
-        "accordion-open": "accordion-slide-down 300ms cubic-bezier(0.87, 0, 0.13, 1) forwards",
-        "accordion-close": "accordion-slide-up 300ms cubic-bezier(0.87, 0, 0.13, 1) forwards",
-        enter: "enter 200ms ease-out",
-        "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
-        leave: "leave 150ms ease-in forwards",
+        snowfall: "snow 10s linear infinite",
+        "gentle-float": "float 4s ease-in-out infinite",
+      },
+      keyframes: {
+        snow: {
+          "0%": { transform: "translateY(-10px) translateX(0)", opacity: "0" },
+          "50%": { opacity: "0.8" },
+          "100%": { transform: "translateY(100vh) translateX(20px)", opacity: "0" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-6px)" },
+        },
       },
     },
   },

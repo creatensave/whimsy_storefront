@@ -45,11 +45,9 @@ export interface NavItem {
 }
 
 export const MAIN_NAV_ITEMS: NavItem[] = [
-  { label: "Hot Stuff 🔥", href: "/store?sort=created_at" },
-  { label: "Categories", href: "/store" },
-  { label: "Workshops", href: "/categories/workshops" },
-  { label: "Gift Card", href: "/products/gift-card" },
-  { label: "All Products", href: "/store" },
-  { label: "Reviews", href: "/reviews" },
+  { label: "Home", href: "/" },
+  { label: "Hot Stuff 🔥", href: "/collections/festive-edition" },
+  { label: "Collections", href: "/store" },
+  { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ]

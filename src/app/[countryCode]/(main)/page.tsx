@@ -34,11 +34,6 @@ export default async function Home(props: HomePageProps) {
   return (
     <main className="bg-whimsy-cream min-h-screen flex flex-col">
       <Hero />
-      <TrendingKits
-        collections={collections}
-        region={region}
-        countryCode={countryCode}
-      />
     </main>
   )
 }

@@ -1,3 +1,4 @@
 {
-  "/[countryCode]/(main)/page": "app/[countryCode]/(main)/page.js"
+  "/[countryCode]/(main)/page": "app/[countryCode]/(main)/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
 }
