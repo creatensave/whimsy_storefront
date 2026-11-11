@@ -1,12 +1,13 @@
 import { Metadata } from "next"
-import { notFound } from "next/navigation"
+import ComingSoon from "@modules/home/components/coming-soon"
 
-import Hero from "@modules/home/components/hero"
-import TrendingKits from "@modules/home/components/trending-kits"
-import FeaturedProducts from "@modules/home/components/featured-products"
-import TrustStrip from "@modules/home/components/trust-strip"
-import { listCollections } from "@lib/data/collections"
-import { getRegion } from "@lib/data/regions"
+// Preserved imports for when you re-enable the full storefront:
+// import Hero from "@modules/home/components/hero"
+// import TrendingKits from "@modules/home/components/trending-kits"
+// import FeaturedProducts from "@modules/home/components/featured-products"
+// import TrustStrip from "@modules/home/components/trust-strip"
+// import { listCollections } from "@lib/data/collections"
+// import { getRegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
   title: "Best DIY Art Kits & Workshops | Whimsy & Wonder",
@@ -19,21 +20,12 @@ interface HomePageProps {
 }
 
 export default async function Home(props: HomePageProps) {
-  const { countryCode } = await props.params
-
-  const region = await getRegion(countryCode)
-  const { collections } = await listCollections({
-    fields: "id, handle, title",
-  })
-
-  // Fail gracefully into the not-found handler rather than an empty blank screen
-  if (!collections || !region) {
-    notFound()
-  }
+  // Await params to comply with Next.js 15+ dynamic route standards
+  await props.params
 
   return (
-    <main className="bg-whimsy-cream min-h-screen flex flex-col">
-      <Hero />
+    <main className="bg-[#d7eef7] min-h-screen flex flex-col justify-center">
+      <ComingSoon />
     </main>
   )
 }
